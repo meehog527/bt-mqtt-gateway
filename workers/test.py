@@ -1,7 +1,7 @@
 from mqtt import MqttMessage
 from workers.base import BaseWorker
 
-REQUIREMENTS = []
+REQUIREMENTS = ["bluepy"]
 
 class TimeWorker(BaseWorker):
   def _setup(self):
