@@ -1,21 +1,35 @@
-FROM python:3.8-alpine
+FROM arm32v7/debian:stretch
+LABEL maintainer="tux1337"
 
-ENV DEBUG false
+# Let the container know that there is no tty
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN mkdir /application
-COPY . /application
+#Update
+RUN apt-get update && apt-get dist-upgrade -y
 
-WORKDIR /application
+# Install Dependencies
+RUN apt-get install -y --force-yes\
+    git\ 
+    python3\
+    python3-pip\
+    bluetooth\ 
+    bluez\
+    libglib2.0-dev\
+ && apt-get clean
+ 
 
-RUN apk add --no-cache tzdata bluez bluez-libs sudo bluez-deprecated                                  && \
-    apk add --no-cache --virtual build-dependencies git bluez-dev musl-dev make gcc glib-dev musl-dev && \
-    pip install --no-cache-dir -r requirements.txt                                                    && \
-    pip install --no-cache-dir `./gateway.py -r all`                                                  && \
-    apk del build-dependencies
+WORKDIR /opt
 
-COPY ./start.sh /start.sh
-RUN chmod +x /start.sh
+RUN git clone https://github.com/zewelor/bt-mqtt-gateway.git
 
-VOLUME /application/config.yaml
+WORKDIR /opt/bt-mqtt-gateway
+
+RUN pip3 install -r requirements.txt
+RUN pip3 install python-eq3bt
+
+RUN apt-get remove git -y && apt-get clean
+
+
+CMD ["/opt/bt-mqtt-gateway/gateway.py","-d"]
 
 ENTRYPOINT ["/bin/sh", "-c", "/start.sh"]
