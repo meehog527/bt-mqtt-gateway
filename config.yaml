@@ -23,6 +23,11 @@ manager:
   command_retries: 0            # Number of retries for worker commands. Default is 0. Might not be supported for all workers.
   update_retries: 0             # Number of retries for worker updates. Default is 0. Might not be supported for all workers.
   workers:
+    test:
+      args:
+        topic_prefix: test
+      topic_subscription: thermostat/+/+/set
+      update_interval: 60
     # mysensors:
     #   command_timeout: 35       # Optional override of globally set command_timeout.
     #   command_retries: 0        # Optional override of globally set command_retries.
