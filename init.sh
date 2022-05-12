@@ -1,3 +1,5 @@
 echo "Installing python packages"
-pip3 install bluepy
-pip3 install -r requirements.txt
+sudo pip3 install bluepy
+sudo pip3 install -r requirements.txt
+sudo apt-get remove git -y
+sudo apt-get clean
