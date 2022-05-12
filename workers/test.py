@@ -3,7 +3,7 @@ from workers.base import BaseWorker
 
 REQUIREMENTS = ["bluepy"]
 
-class TimeWorker(BaseWorker):
+class TestWorker(BaseWorker):
   def _setup(self):
     self._some = 'variable'
 
