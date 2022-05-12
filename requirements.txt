@@ -3,4 +3,3 @@ pyyaml
 interruptingcow
 apscheduler
 tenacity
-bluepy
