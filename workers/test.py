@@ -8,6 +8,4 @@ class TestWorker(BaseWorker):
     self._some = 'variable'
 
   def status_update(self):
-    from datetime import datetime
-    
-    return [MqttMessage(topic=self.format_topic('time'), payload=datetime.now())]
+    return [MqttMessage(topic=self.format_topic('time'), payload="test")]
