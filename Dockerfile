@@ -1,9 +1,6 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:11.1.0
 FROM ${BUILD_FROM}
 
-# We need to copy in the patches need during build
-COPY rootfs/patches /patches
-
 # Setup base
 ARG BUILD_ARCH=amd64
 
@@ -28,9 +25,6 @@ RUN git clone https://github.com/meehog527/bt-mqtt-gateway.git
 COPY run.sh /
 RUN chmod a+x /run.sh
 CMD [ "/run.sh" ]
-
-# Copy root filesystem
-COPY rootfs /
 
 # Build arguments
 ARG BUILD_ARCH
